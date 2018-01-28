@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import BookDetails from './BookDetails'
 
 class Book extends Component {
 
@@ -23,8 +23,7 @@ class Book extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">To Kill a Mockingbird</div>
-                <div className="book-authors">Harper Lee</div>
+                <BookDetails bookTitle="To Kill a Mockingbird" bookAuthors="Harper Lee" />
             </div>
         )
     }
