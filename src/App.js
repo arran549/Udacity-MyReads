@@ -36,6 +36,8 @@ class BooksApp extends React.Component {
       shelves.push({name: shelf.displayName, books: filteredBooks})
     })
 
+    const { books } = this.state
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -60,7 +62,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <ListBooks books={this.state.books} onAddBook={() => this.setState({ showSearchPage: true })}/>
+          <ListBooks books={books} onAddBook={() => this.setState({ showSearchPage: true })}/>
         )}
       </div>
     )
