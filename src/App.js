@@ -24,8 +24,9 @@ class BooksApp extends React.Component {
 
   moveBookToShelf = (book, shelf) => {
 
-    console.log('moving book');
-
+    BooksAPI.update(book, shelf).then(() => {
+      console.log('updated book on server')
+    })
     this.setState((state, props) => {
 
       const books = state.books;
