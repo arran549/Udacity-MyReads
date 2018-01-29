@@ -22,6 +22,20 @@ class BooksApp extends React.Component {
     })
   }
 
+  moveBookToShelf = (book, shelf) => {
+
+    console.log('moving book');
+
+    this.setState((state, props) => {
+
+      const books = state.books;
+      let theBook = books.filter((b) => b.id === book.id);
+      theBook[0].shelf = shelf;
+
+      return { books, }
+    })
+  }
+
 
   render() {
 
@@ -37,6 +51,8 @@ class BooksApp extends React.Component {
     })
 
     const { books } = this.state
+
+    console.log(shelves);
 
     return (
       <div className="app">
@@ -62,7 +78,7 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <ListBooks books={books} onAddBook={() => this.setState({ showSearchPage: true })}/>
+          <ListBooks books={books} onAddBook={() => this.setState({ showSearchPage: true })} moveBookToShelf={this.moveBookToShelf}/>
         )}
       </div>
     )

@@ -6,7 +6,8 @@ class ListBooks extends Component {
 
     static propTypes = {
         books: PropTypes.array.isRequired,
-        onAddBook: PropTypes.func.isRequired
+        onAddBook: PropTypes.func.isRequired,
+        moveBookToShelf: PropTypes.func.isRequired
     }
 
     render() {
@@ -30,7 +31,7 @@ class ListBooks extends Component {
                 <div className="list-books-content">
                     <div>
                         {shelves.map((shelf) => (
-                            <Bookshelf key={shelf.name} title={shelf.name} books={shelf.books} />
+                            <Bookshelf key={shelf.name} title={shelf.name} books={shelf.books} moveBookToShelf={this.props.moveBookToShelf}/>
                         ))}
                     </div>
                 </div>
