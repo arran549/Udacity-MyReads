@@ -4,15 +4,15 @@ import { PropTypes } from 'prop-types'
 class BookDetails extends Component {
 
     static propTypes = {
-        bookAuthors: PropTypes.string.isRequired
         title: PropTypes.string.isRequired,
+        authors: PropTypes.array.isRequired
     }
 
     render() {
         return (
             <div>
-                <div className="book-authors">{this.props.bookAuthors}</div>
                 <div className="book-title">{this.props.title}</div>
+                <div className="book-authors">{this.props.authors.join(', ')}</div>
             </div>
         )
     }
