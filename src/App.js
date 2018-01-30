@@ -2,8 +2,8 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import ListBooks from './ListBooks';
-import ReactRouter from 'react-router-dom'
 import SearchBooks from './SearchBooks'
+import { Route }  from 'react-router-dom';
 
 
 class BooksApp extends React.Component {
@@ -58,12 +58,17 @@ class BooksApp extends React.Component {
     console.log(shelves);
 
     return (
+      
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks books={books} onBackToList={() => this.setState({ showSearchPage: false })} />
-        ) : (
+        <Route exact path="/" render={() => (
           <ListBooks books={books} onAddBook={() => this.setState({ showSearchPage: true })} moveBookToShelf={this.moveBookToShelf}/>
-        )}
+        )} />
+        <Route path="/search" render={({history}) => (
+          <SearchBooks books={books} onBackToList={() => {
+            this.setState({ showSearchPage: false })
+            history.push('/')
+          }} />        
+        )} />
       </div>
     )
   }
