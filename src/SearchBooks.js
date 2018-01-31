@@ -23,10 +23,10 @@ class SearchBooks extends Component {
                 this.setState({ searchResults })
             })
             .catch(() => {
-                this.setState({ searchResults: []})
+                this.setState({ searchResults: [] })
             })        
         } else {
-            this.setState({ searchResults: []})
+            this.setState({ searchResults: [] })
         }
     }
 
