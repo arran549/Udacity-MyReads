@@ -3,38 +3,41 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
+import * as BooksAPI from './BooksAPI'
 
 
 class SearchBooks extends Component {
 
     static propTypes = {
-        books: PropTypes.array,
+        //books: PropTypes.array,
         moveBookToShelf: PropTypes.func.isRequired
     }
 
     state = {
-        query: ''
+        query: '',
+        searchResults: [],
     }
 
     updateQuery = (query) =>{
         this.setState({query: query.trim() })
+        BooksAPI.search(query).then((books) => {
+            this.setState({ searchResults: books })
+            console.log('searchAPI', books);
+        })
     }
+
+    componentDidMount() {
+
+    }
+
 
     render(){
 
-        const { query } = this.state;
-        const { books, moveBookToShelf } = this.props;
+        const { query, searchResults } = this.state;
+        const { moveBookToShelf } = this.props;
 
-        let filteredBooks;
+        let filteredBooks = searchResults;
 
-        if(this.state.query){
-            const match = new RegExp(escapeRegExp(query), 'i')
-            filteredBooks = books.filter((book) => match.test(book.title))
-        } else {
-            filteredBooks = books;
-        }
-
-        
 
         return (
             <div className="search-books">

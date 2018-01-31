@@ -33,8 +33,12 @@ class BooksApp extends React.Component {
 
       const books = state.books;
       let theBook = books.filter((b) => b.id === book.id);
-      theBook[0].shelf = shelf;
-
+      if(theBook.length){
+        theBook[0].shelf = shelf;
+      } else{
+        book.shelf = shelf
+        books.push(book);
+      }
       return { books, }
     })
   }
