@@ -5,14 +5,17 @@ class BookDetails extends Component {
 
     static propTypes = {
         title: PropTypes.string.isRequired,
-        authors: PropTypes.array.isRequired
+        authors: PropTypes.array
     }
 
     render() {
+
+        const { title, authors } = this.props;
+
         return (
             <div>
-                <div className="book-title">{this.props.title}</div>
-                <div className="book-authors">{this.props.authors.join(', ')}</div>
+                <div className="book-title">{ title }</div>
+                <div className="book-authors">{authors && authors.join(', ')}</div>
             </div>
         )
     }
