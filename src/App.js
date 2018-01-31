@@ -67,7 +67,7 @@ class BooksApp extends React.Component {
           <SearchBooks books={books} onBackToList={() => {
             this.setState({ showSearchPage: false })
             history.push('/')
-          }} />        
+          }} moveBookToShelf={this.moveBookToShelf} />        
         )} />
       </div>
     )
