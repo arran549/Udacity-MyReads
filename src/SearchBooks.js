@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import escapeRegExp from 'escape-string-regexp'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 
@@ -9,35 +8,34 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooks extends Component {
 
     static propTypes = {
-        //books: PropTypes.array,
         moveBookToShelf: PropTypes.func.isRequired
     }
 
     state = {
         query: '',
-        searchResults: [],
+        searchResults: []
     }
 
     updateQuery = (query) =>{
         this.setState({query: query.trim() })
-        BooksAPI.search(query).then((books) => {
-            this.setState({ searchResults: books })
-            console.log('searchAPI', books);
-        })
+        if(query) {
+            BooksAPI.search(query).then((books) => {
+                this.setState({ searchResults: books })
+            })
+            .catch(() => {
+                this.setState({ searchResults: []})
+            })        
+        } else {
+            this.setState({ searchResults: []})
+        }
     }
-
-    componentDidMount() {
-
-    }
-
 
     render(){
 
         const { query, searchResults } = this.state;
         const { moveBookToShelf } = this.props;
 
-        let filteredBooks = searchResults;
-
+        const filteredBooks = searchResults;
 
         return (
             <div className="search-books">
