@@ -35,7 +35,7 @@ class BooksApp extends React.Component {
       let theBook = books.filter((b) => b.id === book.id);
       if(theBook.length){
         theBook[0].shelf = shelf;
-      } else{
+      } else {
         book.shelf = shelf
         books.push(book);
       }
