@@ -8,6 +8,7 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooks extends Component {
 
     static propTypes = {
+        books: PropTypes.array.isRequired,
         moveBookToShelf: PropTypes.func.isRequired
     }
 
@@ -16,11 +17,27 @@ class SearchBooks extends Component {
         searchResults: []
     }
 
+    setShelvesForSearchResults = (searchResults) => {
+        this.setState((state, props) => {
+            for (let sr of searchResults) {
+                let book = this.props.books.filter((x) => x.id === sr.id)
+                if(book.length) {
+                    let srbook = searchResults.filter((s) => s.id === book[0].id)
+
+                    if(srbook.length){
+                        srbook[0].shelf = book[0].shelf;
+                    }
+                }
+            }
+            return { searchResults }
+        })
+    }
+
     updateQuery = (query) =>{
         this.setState({query: query.trim() })
         if(query) {
             BooksAPI.search(query).then((searchResults) => {
-                this.setState({ searchResults })
+                this.setShelvesForSearchResults(searchResults);
             })
             .catch(() => {
                 this.setState({ searchResults: [] })
@@ -30,12 +47,14 @@ class SearchBooks extends Component {
         }
     }
 
+    componentWillReceiveProps(){
+        this.setShelvesForSearchResults(this.state.searchResults);
+    }
+
     render(){
 
         const { query, searchResults } = this.state;
         const { moveBookToShelf } = this.props;
-
-        const filteredBooks = searchResults;
 
         return (
             <div className="search-books">
@@ -51,7 +70,7 @@ class SearchBooks extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                            {filteredBooks.map((book) => (
+                            {searchResults.map((book) => (
                                 <li key={book.id}><Book book={book} moveBookToShelf={moveBookToShelf}/></li>
                             ))}
                     </ol>
