@@ -8,6 +8,7 @@
     "sort-by": "^1.2.0"
   },
   "devDependencies": {
+    "jest": "^22.3.0",
     "react-scripts": "0.9.5"
   },
   "scripts": {
